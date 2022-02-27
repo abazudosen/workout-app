@@ -1,7 +1,7 @@
-import { FontAwesome } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+import { clearWorkouts, initWorkouts } from '../storage/workout';
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -11,12 +11,13 @@ export default function useCachedResources() {
     async function loadResourcesAndDataAsync() {
       try {
         SplashScreen.preventAutoHideAsync();
-
+        // await clearWorkouts();
+        await initWorkouts();
         // Load fonts
         await Font.loadAsync({
-          ...FontAwesome.font,
-          'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
-        });
+          "montserrat": require("../assets/fonts/Montserrat-Regular.ttf"),
+          "montserrat-bold": require("../assets/fonts/Montserrat-Bold.ttf"),
+        })
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
